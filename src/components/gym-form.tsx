@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
 interface GymFormProps {
-  onSubmit: (data: { workout: string }) => Promise<void>
-  hasSubmittedToday: boolean
+  onSubmit: (data: { workout: string }) => Promise<void>;
+  hasSubmittedToday: boolean;
 }
 
 export function GymForm({ onSubmit, hasSubmittedToday }: GymFormProps) {
-  const [workout, setWorkout] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [workout, setWorkout] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     try {
-      await onSubmit({ workout })
-      setWorkout("")
+      await onSubmit({ workout });
+      setWorkout("");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   if (hasSubmittedToday) {
     return (
@@ -30,21 +30,25 @@ export function GymForm({ onSubmit, hasSubmittedToday }: GymFormProps) {
           Gym Workout Submitted ✅
         </h2>
         <p className="text-gt-gray">
-          You've already submitted your gym workout for today. Great job staying consistent, Yellow Jacket!
+          You&apos;ve already submitted your gym workout for today. Great job
+          staying consistent, Yellow Jacket!
         </p>
       </div>
-    )
+    );
   }
 
   return (
     <div className="bg-white rounded-lg shadow-lg border border-gt-gold/20 p-6">
       <h2 className="text-lg font-medium text-gt-navy mb-4">
-        Submit Today's Gym Workout
+        Submit Today&apos;s Gym Workout
       </h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="workout" className="block text-sm font-medium text-gt-navy">
+          <label
+            htmlFor="workout"
+            className="block text-sm font-medium text-gt-navy"
+          >
             Workout Description
           </label>
           <textarea
@@ -67,5 +71,5 @@ export function GymForm({ onSubmit, hasSubmittedToday }: GymFormProps) {
         </button>
       </form>
     </div>
-  )
+  );
 }

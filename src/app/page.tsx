@@ -1,28 +1,29 @@
-"use client"
+"use client";
 
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useEffect } from "react"
-import Link from "next/link"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    if (status === "loading") return
-    
+    if (status === "loading") return;
+
     if (session) {
-      router.push("/dashboard")
+      router.push("/dashboard");
     }
-  }, [session, status, router])
+  }, [session, status, router]);
 
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -31,9 +32,11 @@ export default function Home() {
         <div className="flex flex-col justify-center min-h-screen py-12">
           <div className="text-center">
             <div className="flex justify-center mb-8">
-              <img 
-                src="/gt-logo.svg" 
-                alt="Georgia Tech Logo" 
+              <Image
+                src="/gt-logo.svg"
+                alt="Georgia Tech Logo"
+                width={80}
+                height={80}
                 className="h-20 w-auto"
               />
             </div>
@@ -41,8 +44,9 @@ export default function Home() {
               Stay <span className="text-gt-gold">Accountable</span>
             </h1>
             <p className="mt-6 text-lg text-gt-gray max-w-2xl mx-auto">
-              Track your daily LeetCode progress and gym workouts. Share your journey 
-              with the Georgia Tech community and stay motivated together.
+              Track your daily LeetCode progress and gym workouts. Share your
+              journey with the Georgia Tech community and stay motivated
+              together.
             </p>
           </div>
 
@@ -64,7 +68,8 @@ export default function Home() {
                 LeetCode Progress
               </h3>
               <p className="mt-2 text-gt-gray">
-                Log your daily coding problems, track your learning, and note when you needed help.
+                Log your daily coding problems, track your learning, and note
+                when you needed help.
               </p>
             </div>
 
@@ -76,7 +81,8 @@ export default function Home() {
                 Gym Workouts
               </h3>
               <p className="mt-2 text-gt-gray">
-                Submit one gym workout per day and maintain your fitness consistency.
+                Submit one gym workout per day and maintain your fitness
+                consistency.
               </p>
             </div>
 
@@ -88,12 +94,13 @@ export default function Home() {
                 Yellow Jacket Community
               </h3>
               <p className="mt-2 text-gt-gray">
-                Connect with fellow Yellow Jackets and stay motivated by the community's progress.
+                Connect with fellow Yellow Jackets and stay motivated by the
+                community&apos;s progress.
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

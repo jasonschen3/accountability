@@ -1,27 +1,28 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function SignUp() {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const router = useRouter()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords don't match")
-      setIsLoading(false)
-      return
+      setError("Passwords don't match");
+      setIsLoading(false);
+      return;
     }
 
     try {
@@ -31,28 +32,30 @@ export default function SignUp() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, password }),
-      })
+      });
 
       if (response.ok) {
-        router.push("/auth/signin?message=Registration successful")
+        router.push("/auth/signin?message=Registration successful");
       } else {
-        const data = await response.json()
-        setError(data.error || "An error occurred")
+        const data = await response.json();
+        setError(data.error || "An error occurred");
       }
-    } catch (error) {
-      setError("An error occurred")
+    } catch {
+      setError("An error occurred");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gt-light-gradient">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <img 
-            src="/gt-logo.svg" 
-            alt="Georgia Tech Logo" 
+          <Image
+            src="/gt-logo.svg"
+            alt="Georgia Tech Logo"
+            width={64}
+            height={64}
             className="h-16 w-auto mx-auto mb-6"
           />
           <h2 className="text-3xl font-extrabold text-gt-navy">
@@ -128,5 +131,5 @@ export default function SignUp() {
         </form>
       </div>
     </div>
-  )
+  );
 }
